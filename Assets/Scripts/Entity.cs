@@ -22,9 +22,10 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float movementSpeed = 10f;
     [SerializeField] protected float shootCooldown = 2f;
 
-    [SerializeField] [Range(1, int.MaxValue)] protected int health = 3;
+    [SerializeField] [Range(1, 10)] protected int health = 3;
     
     [SerializeField] protected GameObject bulletPrefab;
+    [SerializeField] protected ParticleSystem destroyEffect;
     
     protected Vector2 _movementDirection;
     protected Rigidbody2D _rigidbody2D;
@@ -37,4 +38,9 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void ApplyDamage(int damage) {}
+
+    public virtual void OnDestroy()
+    {
+        Instantiate(destroyEffect, _transform.position, _transform.rotation);
+    }
 }

@@ -46,8 +46,11 @@ public class Bullet : MonoBehaviour
         {
             entity.ApplyDamage(damage); 
         }
+        else
+        {
+            Instantiate(destroyEffect, _transform.position, _transform.rotation);
+        }
         
-        destroyEffect.Play();
         Destroy(gameObject);
     }
 }
