@@ -82,8 +82,8 @@
                 },
                 {
                     "name": "",
-                    "id": "9c3601b4-6eeb-4589-b078-d8fb909f348e",
-                    "path": "<Gamepad>/leftStick",
+                    "id": "95f3a621-e749-4ba3-9d8f-208fede0c39b",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -93,8 +93,8 @@
                 },
                 {
                     "name": "",
-                    "id": "95f3a621-e749-4ba3-9d8f-208fede0c39b",
-                    "path": "<Gamepad>/dpad",
+                    "id": "eaa2c562-9d28-49ac-aac5-25aa76e3bf9a",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
