@@ -14,25 +14,44 @@
 // <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem.LowLevel;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : Entity
 {
- 
-    public override void ApplyDamage(int damage)
+    [SerializeField] private bool isActive = false;
+    [SerializeField] private float activationDelay = 2f;
+
+    private void Awake()
     {
-        if (damage <= 0)
-            throw new ArgumentOutOfRangeException();
-
-        health -= damage;
-
-        if (health <= 0)
-            Die();
+        StartCoroutine(nameof(Activate));
+    }
+    
+    private void Update()
+    {
+        if (isActive && _shootingAllowed)
+            Shoot();
+    }
+    
+    protected override void Shoot()
+    {
+        Instantiate(weaponPrefab, _transform.position, _transform.rotation);
+        _shootingAllowed = false;
+        StartCoroutine(nameof(AllowShooting));
+    }
+    
+    private IEnumerator AllowShooting()
+    {
+        yield return new WaitForSeconds(shootCooldown);
+        _shootingAllowed = true;
     }
 
-    private void Die()
+    private IEnumerator Activate()
     {
-        Destroy(gameObject);
+        yield return new WaitForSeconds(activationDelay);
+        isActive = true;
     }
+    
 }

@@ -13,18 +13,15 @@
 // You should have received a copy of the GNU General Public License along with SpaceInvaders. If not, see
 // <https://www.gnu.org/licenses/>.
 
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class Player : Entity
 {
-    private bool _shootingAllowed = true;
-    
-    private void Update()
+    private void FixedUpdate()
     {
-        _transform.Translate(Time.deltaTime * movementSpeed * _movementDirection );
+        _rigidbody2D.velocity = movementSpeed * _movementDirection;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -38,26 +35,31 @@ public class Player : Entity
             return;
 
         Shoot();
-        
-        Invoke(nameof(AllowShooting), shootCooldown);
-    }
 
-    public override void ApplyDamage(int damage)
-    {
-        if (damage <= 0)
-            throw new ArgumentOutOfRangeException();
-        
-        health--;
+        StartCoroutine(nameof(AllowShooting));
     }
     
-    private void AllowShooting()
+    private IEnumerator AllowShooting()
     {
+        yield return new WaitForSeconds(shootCooldown);
         _shootingAllowed = true;
     }
 
-    private void Shoot()
+    protected override void Shoot()
     {
-        Instantiate(bulletPrefab, _transform.position, _transform.rotation);
+        Instantiate(_currentWeaponPrefab, _transform.position, _transform.rotation);
         _shootingAllowed = false;
+    }
+
+    public void PickUp(GameObject weaponPrefab, float time)
+    {
+        _currentWeaponPrefab = weaponPrefab;
+        StartCoroutine(RemovePickUp(time));
+    }
+
+    private IEnumerator RemovePickUp(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _currentWeaponPrefab = weaponPrefab;
     }
 }

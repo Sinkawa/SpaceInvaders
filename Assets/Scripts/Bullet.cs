@@ -14,43 +14,45 @@
 // <https://www.gnu.org/licenses/>.
 
 using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
     [SerializeField] protected float movementSpeed = 1f;
     [SerializeField] protected int damage = 1;
-
+    [SerializeField] protected LayerMask targetLayer;
+    
     [SerializeField] protected ParticleSystem destroyEffect;
 
+    protected Rigidbody2D _rigidbody2D;
     protected Transform _transform;
     
     private void Start()
     {
-        Debug.Log("Bullet: Start");
         _transform = GetComponent<Transform>();
-    }
-    
-    private void Update()
-    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        
         Move();
     }
     
     protected virtual void Move()
     {
-        _transform.Translate(Time.deltaTime * movementSpeed * _transform.right);
+        _rigidbody2D.velocity = movementSpeed * _transform.right;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Bullet: OnTriggerEnter2D");
         if (other.TryGetComponent(out Entity entity))
         {
-            entity.ApplyDamage(damage); 
+            
+            if ((targetLayer & 1 << entity.gameObject.layer) == 1 << entity.gameObject.layer)
+            {
+                entity.ApplyDamage(damage);
+                
+                Instantiate(destroyEffect, _transform.position, _transform.rotation);
+                Destroy(gameObject);
+            }
         }
-        else
-        {
-            Instantiate(destroyEffect, _transform.position, _transform.rotation);
-        }
-        
-        Destroy(gameObject);
     }
+    
 }
