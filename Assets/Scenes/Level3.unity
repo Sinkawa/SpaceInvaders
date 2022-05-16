@@ -937,6 +937,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2723768937651244967, guid: 6620e1bbc8c96304ea4c5d0457e5c7d0, type: 3}
+      propertyPath: nextSceneBuildIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723768937651244967, guid: 6620e1bbc8c96304ea4c5d0457e5c7d0, type: 3}
       propertyPath: enemies.Array.data[0]
       value: 
       objectReference: {fileID: 846187178}
