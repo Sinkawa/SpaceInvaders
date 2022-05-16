@@ -16,7 +16,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(AudioSource))]
 public class Bonus : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
@@ -26,7 +26,8 @@ public class Bonus : MonoBehaviour
     [SerializeField][Range(0f, 45f)] private float angleLimits = 30f;
 
     [SerializeField] private GameObject weaponPrefab;
-    
+
+    private AudioSource _audioSource;
     private Rigidbody2D _rigidbody2D;
     private Transform _transform;
     private float _maxRotation;
@@ -35,7 +36,8 @@ public class Bonus : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        
+        _audioSource = GetComponent<AudioSource>();
+            
         _maxRotation = _rigidbody2D.rotation + angleLimits;
     }
 
@@ -57,6 +59,8 @@ public class Bonus : MonoBehaviour
         if (other.TryGetComponent(out Player player))
         {
             player.PickUp(weaponPrefab);
+            
+            _audioSource.Play();
             
             Destroy(gameObject);
         }
