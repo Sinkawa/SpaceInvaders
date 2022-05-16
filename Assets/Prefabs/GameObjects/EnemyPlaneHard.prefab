@@ -12,6 +12,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4319236716466722496, guid: c14e17825d5df01408575c9379a110d0, type: 3}
+      propertyPath: gamePoints
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319236716466722496, guid: c14e17825d5df01408575c9379a110d0, type: 3}
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 376490566715825320, guid: da228817faaece64280ec1ac40b2adb8, type: 3}
@@ -22,11 +26,15 @@ PrefabInstance:
     - target: {fileID: 4319236716466722496, guid: c14e17825d5df01408575c9379a110d0, type: 3}
       propertyPath: weaponPrefab
       value: 
-      objectReference: {fileID: 376490566715825320, guid: da228817faaece64280ec1ac40b2adb8, type: 3}
+      objectReference: {fileID: 4435619644710847226, guid: eee25bf947f3b234e8640b4fed355d22, type: 3}
     - target: {fileID: 4319236716466722496, guid: c14e17825d5df01408575c9379a110d0, type: 3}
       propertyPath: flashingDuration
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4319236716466722496, guid: c14e17825d5df01408575c9379a110d0, type: 3}
+      propertyPath: defaultWeaponPrefab
+      value: 
+      objectReference: {fileID: 4435619644710847226, guid: eee25bf947f3b234e8640b4fed355d22, type: 3}
     - target: {fileID: 4319236716466722496, guid: c14e17825d5df01408575c9379a110d0, type: 3}
       propertyPath: destroyed.m_PersistentCalls.m_Calls.Array.size
       value: 1

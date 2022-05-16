@@ -23,7 +23,6 @@ public class Entity : MonoBehaviour, IDamageable
 {
     [Header("General")] 
     [SerializeField] protected float movementSpeed = 10f;
-    [SerializeField] protected float shootCooldown = 2f;
     [SerializeField] private int gamePoints = 100;
     public int Points => gamePoints;
 
@@ -33,26 +32,51 @@ public class Entity : MonoBehaviour, IDamageable
 
     [Header("Damage indication")] 
     [SerializeField] private Color damageColor = Color.red;
-
     [SerializeField] private float flashingDuration = 0.5f;
     [SerializeField] private float flashingRate = 0.05f;
-    private SpriteRenderer _spriteRenderer;
-
-    [SerializeField] protected GameObject weaponPrefab;
+    
+    [Header("Prefabs")]
+    [SerializeField] protected GameObject defaultWeaponPrefab;
     [SerializeField] protected ParticleSystem destroyEffect;
-
-    protected GameObject _currentWeaponPrefab;
-
+    
+    
     public UnityEvent<int> healthChanged;
     public UnityEvent<Entity> destroyed;
+    public UnityEvent<IWeapon> weaponChanged;
 
+    private SpriteRenderer _spriteRenderer;
     protected Rigidbody2D _rigidbody2D;
     protected Vector2 _movementDirection;
     protected Transform _transform;
-    protected bool _shootingAllowed = true;
 
     private int _currentHealth;
 
+    private IWeapon _weapon;
+    private GameObject _weaponObject;
+    
+    protected GameObject CurrentWeaponObject
+    {
+        get => _weaponObject;
+        set
+        {
+            if (_weaponObject)
+                Destroy(_weaponObject);
+            
+            _weaponObject = Instantiate(value, transform);;
+            CurrentWeapon = _weaponObject.GetComponent<IWeapon>();
+        }
+    }
+    
+    protected IWeapon CurrentWeapon
+    {
+        get => _weapon;
+        set
+        {
+            _weapon = value;
+            weaponChanged.Invoke(value);
+        }
+    }
+    
     protected int Health
     {
         get => _currentHealth;
@@ -68,7 +92,7 @@ public class Entity : MonoBehaviour, IDamageable
         _transform = GetComponent<Transform>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _currentWeaponPrefab = weaponPrefab;
+        CurrentWeaponObject = defaultWeaponPrefab;
         Health = health;
     }
     
@@ -118,6 +142,4 @@ public class Entity : MonoBehaviour, IDamageable
 
         Destroy(gameObject);
     }
-    
-    protected virtual void Shoot() {}
 }

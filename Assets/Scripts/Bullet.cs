@@ -15,44 +15,26 @@
 
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class Bullet : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+public class Bullet : Projectile
 {
     [SerializeField] protected float movementSpeed = 1f;
     [SerializeField] protected int damage = 1;
-    [SerializeField] protected LayerMask targetLayer;
-    
+
     [SerializeField] protected ParticleSystem destroyEffect;
 
-    protected Rigidbody2D _rigidbody2D;
-    protected Transform _transform;
-    
     private void Start()
     {
-        _transform = GetComponent<Transform>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        
-        Move();
-    }
-    
-    protected virtual void Move()
-    {
-        _rigidbody2D.velocity = movementSpeed * _transform.right;
+        GetComponent<Rigidbody2D>().velocity = movementSpeed * transform.right;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void ShowDestroyEffect()
     {
-        if (other.TryGetComponent(out Entity entity))
-        {
-            
-            if ((targetLayer & 1 << entity.gameObject.layer) == 1 << entity.gameObject.layer)
-            {
-                entity.ApplyDamage(damage);
-                
-                Instantiate(destroyEffect, _transform.position, _transform.rotation);
-                Destroy(gameObject);
-            }
-        }
+        Instantiate(destroyEffect, transform.position, transform.rotation);
     }
-    
+
+    protected override void InteractWithEntity(Entity entity)
+    {
+        entity.ApplyDamage(damage);
+    }
 }

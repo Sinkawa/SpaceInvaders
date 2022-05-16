@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License along with SpaceInvaders. If not, see
 // <https://www.gnu.org/licenses/>.
 
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,8 +22,9 @@ using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private int nextSceneBuildIndex;
     [SerializeField] private List<GameObject> enemies;
-
+    
     public UnityEvent levelCleared;
     
     public GameObject GetRandomEnemy()
@@ -40,13 +41,20 @@ public class LevelManager : MonoBehaviour
         if (enemies.Count == 0)
         {
             levelCleared.Invoke();
-            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            StartCoroutine(LoadNewScene(nextSceneBuildIndex));
         }
     }
     
     public void OnPlayerDeath(Entity entity)
     {
-        
+        var sceneCount = SceneManager.sceneCountInBuildSettings;
+        StartCoroutine(LoadNewScene(sceneCount - 1));
+    }
+
+    private IEnumerator LoadNewScene(int index)
+    {
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene(index);
     }
 }

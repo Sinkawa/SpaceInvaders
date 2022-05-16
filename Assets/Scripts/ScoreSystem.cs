@@ -16,66 +16,86 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-
-namespace DefaultNamespace
+public class ScoreSystem : MonoBehaviour
 {
-    public class ScoreSystem : MonoBehaviour
+    private const string CurrentScoreKey = "CurrentScore";
+    private const string HighScoreKey = "HighScore";
+    private const string FinalScoreKey = "FinalScore";
+    
+    private int _currentScore;
+    private int _finalScore;
+
+
+    protected int CurrentScore
     {
-        private const string ScoreKey = "score";
-        private int _currentScore;
-        private int _finalScore;
-
-
-        protected int CurrentScore
+        get => _currentScore;
+        set
         {
-            get => _currentScore;
-            set
-            {
-                _currentScore = value;
-                scoreChanged.Invoke(_currentScore);
-            }
+            _currentScore = value;
+            scoreChanged.Invoke(_currentScore);
         }
+    }
+    
+    public UnityEvent<int> scoreChanged;
+    
+    private void Awake()
+    {
+        CurrentScore = PlayerPrefs.GetInt(CurrentScoreKey);
+    }
+
+    public void ClearCurrentScore()
+    {
+        PlayerPrefs.SetInt(CurrentScoreKey, 0);    
+    }
+    
+    private void SaveCurrentScore()
+    {
+        PlayerPrefs.SetInt(CurrentScoreKey, CurrentScore);    
+    }
+
+    public void SaveFinalScore()
+    {
+        PlayerPrefs.SetInt(FinalScoreKey, CurrentScore);    
+    }
+    
+    public int GetFinalScore()
+    {
+        return PlayerPrefs.GetInt(FinalScoreKey);        
+    }
+
+    public int GetHighScore()
+    {
+        return PlayerPrefs.GetInt(HighScoreKey);  
+    }
+
+    public bool SaveHighScore()
+    {
+        var finalScore = GetFinalScore();
+        var lastHighScore = GetHighScore();
+
+        var isHighScored = finalScore > lastHighScore;
         
-        public UnityEvent<int> scoreChanged;
+        if (isHighScored)
+            PlayerPrefs.SetInt(HighScoreKey, finalScore);
+
+        return isHighScored;
+    }
+
+    public void OnEnemyDeath(Entity entity)
+    {
+        if (entity.Points < 0)
+            throw new ArgumentOutOfRangeException();
         
-        private void Awake()
-        {
-            CurrentScore = PlayerPrefs.GetInt(ScoreKey);
-        }
+        CurrentScore += entity.Points;
+    }
 
-        private void ClearPoints()
-        {
-            PlayerPrefs.SetInt(ScoreKey, 0);    
-        }
-        
-        private void SavePoints()
-        {
-            PlayerPrefs.SetInt(ScoreKey, CurrentScore);    
-        }
-        
-        public void OnPlayerDeath(Entity entity)
-        {
-            _finalScore = CurrentScore;
-            CurrentScore = 0;
-            ClearPoints();
-        }
+    public void OnLevelCleared()
+    {
+        SaveCurrentScore();
+    }
 
-        public void OnEnemyDeath(Entity entity)
-        {
-            if (entity.Points < 0)
-                throw new ArgumentOutOfRangeException();
-            
-            CurrentScore += entity.Points;
-        }
-
-        public void OnLevelCleared()
-        {
-            SavePoints();
-        }
-
-        public void OnNewLevelLoad()
-        {
-            ClearPoints();
-        }
+    public void SaveToDisk()
+    {
+        PlayerPrefs.Save();
     }
 }

@@ -209,19 +209,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  shootCooldown: 0.01
   gamePoints: 100
   health: 3
   collisionDamage: 10
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashingDuration: 2
   flashingRate: 0.5
-  weaponPrefab: {fileID: 311421155086546048, guid: 9909d4c8afdb976419695c6cbfb52b2c, type: 3}
+  defaultWeaponPrefab: {fileID: 5934871234045001379, guid: ebeca30ba513b51459e07cd227836879, type: 3}
   destroyEffect: {fileID: 2625572685885530541, guid: bfff8b7657b2c6c4fa4324e53206b76e, type: 3}
   healthChanged:
     m_PersistentCalls:
       m_Calls: []
   destroyed:
+    m_PersistentCalls:
+      m_Calls: []
+  weaponChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &9201774782821091101

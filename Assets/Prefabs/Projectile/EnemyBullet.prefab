@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2033050240717636849, guid: 9909d4c8afdb976419695c6cbfb52b2c, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: bc1efa04b77b1a9488fc18dfddfaeb14, type: 3}
     - target: {fileID: -1036615267081822879, guid: 9909d4c8afdb976419695c6cbfb52b2c, type: 3}
       propertyPath: movementSpeed
       value: 10

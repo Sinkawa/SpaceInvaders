@@ -19,6 +19,14 @@ using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
+    private bool _isShooting;
+
+    private void Update()
+    {
+        if (_isShooting)
+            CurrentWeapon.Shoot(_transform);
+    }
+    
     private void FixedUpdate()
     {
         _rigidbody2D.velocity = movementSpeed * _movementDirection;
@@ -31,35 +39,23 @@ public class Player : Entity
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (!context.performed || !_shootingAllowed)
-            return;
-
-        Shoot();
-
-        StartCoroutine(nameof(AllowShooting));
+        if (context.started)
+            _isShooting = true;
+        if (context.canceled)
+            _isShooting = false;
     }
     
-    private IEnumerator AllowShooting()
+    public void PickUp(GameObject weapon)
     {
-        yield return new WaitForSeconds(shootCooldown);
-        _shootingAllowed = true;
-    }
-
-    protected override void Shoot()
-    {
-        Instantiate(_currentWeaponPrefab, _transform.position, _transform.rotation);
-        _shootingAllowed = false;
-    }
-
-    public void PickUp(GameObject weaponPrefab, float time)
-    {
-        _currentWeaponPrefab = weaponPrefab;
-        StartCoroutine(RemovePickUp(time));
+        
+        CurrentWeaponObject = weapon;
+        
+        StartCoroutine(RemovePickUp(CurrentWeapon.GetTimeOfAction()));
     }
 
     private IEnumerator RemovePickUp(float time)
     {
         yield return new WaitForSeconds(time);
-        _currentWeaponPrefab = weaponPrefab;
+        CurrentWeaponObject = defaultWeaponPrefab;
     }
 }

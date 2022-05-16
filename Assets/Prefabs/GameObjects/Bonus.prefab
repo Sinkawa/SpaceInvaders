@@ -4889,12 +4889,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae50e3125254093999e4a772cd021de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 10
   movementSpeed: 5
   randomizeAngle: 1
   randomAngleLimits: 10
   angleLimits: 30
-  weaponPrefab: {fileID: 4662427097492901688, guid: f2e7353c3c841da42a8572ea39778714, type: 3}
+  weaponPrefab: {fileID: 783094219770838071, guid: 6b4d5a18028a3174b8a663d61c139e9b, type: 3}
 --- !u!114 &8655764636833080292
 MonoBehaviour:
   m_ObjectHideFlags: 0

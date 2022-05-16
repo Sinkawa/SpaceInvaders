@@ -102,6 +102,10 @@ PrefabInstance:
       value: -0.18641192
       objectReference: {fileID: 0}
     - target: {fileID: 8059603333517758564, guid: b29faef49c271524488ee29899f6fde4, type: 3}
+      propertyPath: destroyEffect
+      value: 
+      objectReference: {fileID: 5499869338558585007, guid: 6d0b2cb2ba8d3924a856aab7a3c7bb07, type: 3}
+    - target: {fileID: 8059603333517758564, guid: b29faef49c271524488ee29899f6fde4, type: 3}
       propertyPath: movementSpeed
       value: 12.5
       objectReference: {fileID: 0}
@@ -149,6 +153,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9046996062131631626, guid: b29faef49c271524488ee29899f6fde4, type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046996062131631626, guid: b29faef49c271524488ee29899f6fde4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6832760e26f564b4691953321c73a4ab, type: 3}
     m_RemovedComponents:
     - {fileID: 3138801508966572133, guid: b29faef49c271524488ee29899f6fde4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b29faef49c271524488ee29899f6fde4, type: 3}

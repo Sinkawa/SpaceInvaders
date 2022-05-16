@@ -13,15 +13,12 @@
 // You should have received a copy of the GNU General Public License along with SpaceInvaders. If not, see
 // <https://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem.LowLevel;
 
 public class Enemy : Entity
 {
-    [SerializeField] private bool isActive = false;
+    [SerializeField] private bool isActive;
     [SerializeField] private float activationDelay = 2f;
 
     private void Awake()
@@ -31,23 +28,10 @@ public class Enemy : Entity
     
     private void Update()
     {
-        if (isActive && _shootingAllowed)
-            Shoot();
+        if (isActive)
+            CurrentWeapon.Shoot(_transform);
     }
     
-    protected override void Shoot()
-    {
-        Instantiate(weaponPrefab, _transform.position, _transform.rotation);
-        _shootingAllowed = false;
-        StartCoroutine(nameof(AllowShooting));
-    }
-    
-    private IEnumerator AllowShooting()
-    {
-        yield return new WaitForSeconds(shootCooldown);
-        _shootingAllowed = true;
-    }
-
     private IEnumerator Activate()
     {
         yield return new WaitForSeconds(activationDelay);

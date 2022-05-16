@@ -18,9 +18,12 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Player events")]
     public UnityEvent<Entity> onPlayerDeath;
     public UnityEvent<int> onPlayerHealthChanged;
-
+    public UnityEvent<IWeapon> onWeaponChanged;
+    
+    [Header("Entity events")]
     public UnityEvent<Entity> onEnemyDeath;
 
     public void OnPlayerDeath(Entity entity)
@@ -36,6 +39,11 @@ public class GameManager : MonoBehaviour
     public void OnEnemyDeath(Entity entity)
     {
         onEnemyDeath.Invoke(entity);
+    }
+
+    public void OnWeaponChanged(IWeapon weapon)
+    {
+        onWeaponChanged.Invoke(weapon);
     }
     
 }

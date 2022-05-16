@@ -13,16 +13,15 @@
 // You should have received a copy of the GNU General Public License along with SpaceInvaders. If not, see
 // <https://www.gnu.org/licenses/>.
 
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class Bonus : MonoBehaviour
 {
-    [SerializeField] private float time = 10f;
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private bool randomizeAngle = true;
+    
     [SerializeField][Range(0f, 60f)] private float randomAngleLimits = 10f;
     [SerializeField][Range(0f, 45f)] private float angleLimits = 30f;
 
@@ -57,7 +56,7 @@ public class Bonus : MonoBehaviour
     {
         if (other.TryGetComponent(out Player player))
         {
-            player.PickUp(weaponPrefab, time);
+            player.PickUp(weaponPrefab);
             
             Destroy(gameObject);
         }

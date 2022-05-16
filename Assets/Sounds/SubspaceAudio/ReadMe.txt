@@ -1,0 +1,4 @@
+Thanks SubspaceAudio for SFX!
+
+Original post:
+<https://opengameart.org/content/512-sound-effects-8-bit-style>

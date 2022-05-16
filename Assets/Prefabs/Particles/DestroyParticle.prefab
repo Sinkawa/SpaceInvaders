@@ -179,5 +179,9 @@ PrefabInstance:
       propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
+    - target: {fileID: 7670546013677142352, guid: bfff8b7657b2c6c4fa4324e53206b76e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 40d14126cbd06284b8547261a9d73829, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfff8b7657b2c6c4fa4324e53206b76e, type: 3}
