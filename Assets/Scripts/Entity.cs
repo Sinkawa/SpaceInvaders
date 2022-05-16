@@ -132,6 +132,8 @@ public class Entity : MonoBehaviour, IDamageable
             _spriteRenderer.color = defaultColor;
             yield return new WaitForSeconds(flashingRate);
         }
+        
+        _spriteRenderer.color = defaultColor;
     }
     
     private void Destroy()
