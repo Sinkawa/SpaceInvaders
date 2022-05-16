@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1489166335708768883}
   - component: {fileID: -2596371511769174248}
   - component: {fileID: -8946003872539293517}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4585420140664783880}
   - component: {fileID: 2576773305485736161}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
