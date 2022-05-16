@@ -38,10 +38,17 @@ public class HomingMissile : Projectile
         StartCoroutine(nameof(HomingMove));
     }
     
-    private static Vector3 GetRandomEnemyPosition()
+    private static Vector3 GetRandomEnemyPosition(out bool error)
     {
+        error = false;
         var enemies = FindObjectsOfType<Enemy>();
-        return enemies[Random.Range(0, enemies.Count())].transform.position;
+        var enemiesCount = enemies.Count();
+
+        if (enemiesCount != 0) 
+            return enemies[Random.Range(0, enemiesCount)].transform.position;
+        
+        error = true;
+        return new Vector3();
     }
     
     private IEnumerator HomingMove()
@@ -49,7 +56,10 @@ public class HomingMissile : Projectile
         _rigidbody2D.velocity = movementSpeed * _transform.right;
         yield return new WaitForSeconds(activationDelay);
         
-        var targetPosition = GetRandomEnemyPosition();
+        var targetPosition = GetRandomEnemyPosition(out bool error);
+        if (error)
+            yield break;
+        
         while (true)
         {
             yield return new WaitForFixedUpdate();
