@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5934871234045001378, guid: ebeca30ba513b51459e07cd227836879, type: 3}
       propertyPath: nameOfWeapon
-      value: Homming Missiles
+      value: Homing Missile
       objectReference: {fileID: 0}
     - target: {fileID: 5934871234045001378, guid: ebeca30ba513b51459e07cd227836879, type: 3}
       propertyPath: timeOfAction

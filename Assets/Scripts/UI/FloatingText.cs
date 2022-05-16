@@ -55,6 +55,7 @@ public class FloatingText : MonoBehaviour
 
     public void SetText(string text)
     {
+        Debug.Log($"SetText: {text}");
         textMesh.text = text;
     }
     

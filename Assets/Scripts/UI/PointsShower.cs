@@ -21,7 +21,9 @@ public class PointsShower : MonoBehaviour
     
     public void OnDestroyed(Entity entity)
     {
-        Instantiate(textPrefab, entity.transform.position, new Quaternion());
-        textPrefab.GetComponent<FloatingText>().SetText(entity.Points.ToString());
+        Debug.Log($"OnDestroyed Entity points: {entity.Points.ToString()}");        
+        
+        var floatingText = Instantiate(textPrefab, entity.transform.position, new Quaternion());
+        floatingText.GetComponent<FloatingText>().SetText(entity.Points.ToString());
     }
 }
