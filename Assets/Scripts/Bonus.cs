@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License along with SpaceInvaders. If not, see
 // <https://www.gnu.org/licenses/>.
 
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -58,11 +59,16 @@ public class Bonus : MonoBehaviour
     {
         if (other.TryGetComponent(out Player player))
         {
+            _audioSource.Play();
             player.PickUp(weaponPrefab);
             
-            _audioSource.Play();
-            
-            Destroy(gameObject);
+            StartCoroutine(DestroyAfterEndPlaying());
         }
+    }
+
+    private IEnumerator DestroyAfterEndPlaying()
+    {
+        yield return new WaitWhile(() => _audioSource.isPlaying);
+        Destroy(gameObject);
     }
 }
